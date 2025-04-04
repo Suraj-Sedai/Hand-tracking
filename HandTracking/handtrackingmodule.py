@@ -47,21 +47,25 @@ class handDetector():
 
     #functions to count the number of fingers
     def fingersUp(self):
-        fingers = []
-        # thumb
-        if self.lmList[4][1] < self.lmList[3][1]:
-            fingers.append(1)
-        else:
-            fingers.append(0)
+            if len(self.lmList) == 0:
+                return []
 
-        # 4 fingers
-        for id in range(8, 20, 4):
-            if self.lmList[id][2] < self.lmList[id - 2][2]:
+            fingers = []
+            
+            # Thumb (compared with index finger base)
+            if self.lmList[4][1] > self.lmList[3][1]:  # Thumb extended if x[4] > x[3] (right hand)
                 fingers.append(1)
             else:
                 fingers.append(0)
 
-        return fingers
+            # Other 4 fingers (compared vertically)
+            for id in range(8, 21, 4):  # Index, Middle, Ring, Pinky
+                if self.lmList[id][2] < self.lmList[id - 2][2]:  # Finger tip is above PIP joint
+                    fingers.append(1)
+                else:
+                    fingers.append(0)
+
+            return fingers
 
 def main():
     pTime = 0
