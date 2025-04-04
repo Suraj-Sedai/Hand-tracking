@@ -6,11 +6,11 @@ class handDetector():
     def __init__(self, mode = False, maxHands = 2, detectionCon = 0.7, trackCon = 0.7):
         self.mode = mode
         self.maxHands = maxHands
-        self.detectionCon =detectionCon
-        self.trackCon = trackCon
+        self.detectionCon =float(detectionCon)
+        self.trackCon = float(trackCon)
 
         self.mpHands = mp.solutions.hands
-        self.hands = self.mpHands.Hands(self.mode, self.maxHands, self.detectionCon, self.trackCon)
+        self.hands = self.mpHands.Hands(self.mode, self.maxHands, float(self.detectionCon), float(self.trackCon))
         self.mpDraw = mp.solutions.drawing_utils
         self.lmList = []  # Initialize landmark list
 
